@@ -1,16 +1,17 @@
-export default function DashboardLayout({children}){
+export default function HomeLayout({children}){
 
     return(
         <>
         <header>
-            This is for Dashboard layout
+            This is Home Header
         </header>
         <main>
             {children}
         </main>
         <footer>
-            This is our Dashboard Footer
+            This is a Home Footer
         </footer>
         </>
     )
+
 }
