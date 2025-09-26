@@ -1,5 +1,10 @@
 import React from 'react';
 
+export const metadata = {
+    title: 'This is user List',
+    description: 'Hello all user list'
+}
+
 const UserLists = () => {
     return (
         <div>
