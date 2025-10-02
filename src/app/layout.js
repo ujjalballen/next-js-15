@@ -17,6 +17,10 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+
+//   const user = null;
+// if(!user) throw new Error('Your Account is not found')
+
   return (
     <html lang="en">
       <body
