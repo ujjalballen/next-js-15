@@ -1,13 +1,13 @@
 import { Card } from "@/component/Card";
 import Link from "next/link";
 
-export default function Song(){
+export default function Archived(){
 
     return(
         <Card>
-            <div>Song</div>
+            <div>Archived</div>
             <div>
-                <Link href="/complex-dashboard/archived">Archived</Link>
+                <Link href="/complex-dashboard">Default</Link>
             </div>
         </Card>
     )
