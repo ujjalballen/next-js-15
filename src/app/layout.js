@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import ThemeProvider from "@/component/ThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,17 +18,16 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-
-//   const user = null;
-// if(!user) throw new Error('Your Account is not found')
+  //   const user = null;
+  // if(!user) throw new Error('Your Account is not found')
 
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <ThemeProvider>{children}</ThemeProvider>
+        </body>
     </html>
   );
 }
