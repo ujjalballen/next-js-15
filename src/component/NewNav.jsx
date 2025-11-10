@@ -1,8 +1,10 @@
+
 import Input from "./Input"
 
 export default function NewNav(){
 
     console.log("This is a new bar")
+
 
     return(
     <>
