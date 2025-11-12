@@ -1,5 +1,10 @@
 export default async function UserServer() {
-  const response = await fetch("https://jsonplaceholder.typicode.com/users");
+
+
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+
+
+  const response = await fetch("https://jsonplaceholder.typicode.com/users447");
   const results = await response.json();
 
   console.log(results);
