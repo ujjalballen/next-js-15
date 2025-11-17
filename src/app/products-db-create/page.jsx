@@ -1,24 +1,24 @@
 import clientPromise from "@/component/lib/mongodb";
+import Submit from "@/component/Submit";
 
 export default async function AddProductPage() {
   async function createProduct(formData) {
     "use server";
 
-    const title = formData.get('title')
-    const price = formData.get('price')
-    const description = formData.get('description')
-
+    const title = formData.get("title");
+    const price = formData.get("price");
+    const description = formData.get("description");
 
     const client = await clientPromise;
     const db = client.db(process.env.DATABASE_NAME);
     const forms = db.collection("forms");
 
-    const data = {title, price, description};
+    const data = { title, price, description };
 
     const result = await forms.insertOne(data);
 
-    if(result.insertedId){
-       console.log('successfully submit')
+    if (result.insertedId) {
+      console.log("successfully submit");
     }
   }
 
@@ -47,12 +47,8 @@ export default async function AddProductPage() {
           name="description"
         />
       </label>
-      <button
-        type="submit"
-        className="block w-full p-2 text-white bg-blue-500 rounded disabled:bg-gray-500"
-      >
-        Add Product
-      </button>
+
+      <Submit />
     </form>
   );
 }
