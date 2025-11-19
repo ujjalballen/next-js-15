@@ -1,54 +1,74 @@
-import clientPromise from "@/component/lib/mongodb";
-import Submit from "@/component/Submit";
+"use client";
 
-export default async function AddProductPage() {
-  async function createProduct(formData) {
-    "use server";
+import { createProduct } from "@/actions/Products";
+import { useActionState } from "react";
 
-    const title = formData.get("title");
-    const price = formData.get("price");
-    const description = formData.get("description");
 
-    const client = await clientPromise;
-    const db = client.db(process.env.DATABASE_NAME);
-    const forms = db.collection("forms");
+  const initialState = {
+    errors: {},
+     message: null, // Initialize message field
+  };
 
-    const data = { title, price, description };
+export default function AddProductPage() {
 
-    const result = await forms.insertOne(data);
+  const [state, formAction, isPending] = useActionState(
+    createProduct,
+    initialState
+  );
 
-    if (result.insertedId) {
-      console.log("successfully submit");
-    }
-  }
+
+  console.log(state)
 
   return (
-    <form action={createProduct} className="p-4 space-y-4 max-w-96">
-      <label className="text-white">
-        Title
-        <input
-          type="text"
-          className="block w-full bg-white p-2 text-black border rounded"
-          name="title"
-        />
-      </label>
-      <label className="text-white">
-        Price
-        <input
-          type="number"
-          className="block bg-white w-full p-2 text-black border rounded"
-          name="price"
-        />
-      </label>
-      <label className="text-white">
-        Description
-        <textarea
-          className="block w-full bg-white p-2 text-black border rounded"
-          name="description"
-        />
-      </label>
+    <form action={formAction} className="p-4 space-y-4 max-w-96">
+      <div>
+        <label className="text-white">
+          Title
+          <input
+            type="text"
+            className="block w-full bg-white p-2 text-black border rounded"
+            name="title"
+          />
+        </label>
+        {state.errors.title && (
+          <p style={{ color: "red" }}>{state.errors.title}</p>
+        )}
+      </div>
+      <div>
+        <label className="text-white">
+          Price
+          <input
+            type="number"
+            className="block bg-white w-full p-2 text-black border rounded"
+            name="price"
+          />
+        </label>
+        {state.errors.price && (
+          <p style={{ color: "red" }}>{state.errors.price}</p>
+        )}
+      </div>
+      <div>
+        <label className="text-white">
+          Description
+          <textarea
+            className="block w-full bg-white p-2 text-black border rounded"
+            name="description"
+          />
+        </label>
+        {state.errors.description && (
+          <p style={{ color: "red" }}>{state.errors.description}</p>
+        )}
+      </div>
 
-      <Submit />
+      {/* <Submit /> */}
+
+      <button
+        type="submit"
+        className="block w-full p-2 text-white bg-blue-500 rounded disabled:bg-gray-500"
+        disabled={isPending}
+      >
+        {isPending ? "Adding..." : "Add Product"}
+      </button>
     </form>
   );
 }
