@@ -1,6 +1,8 @@
 "use server";
 
 import clientPromise from "@/component/lib/mongodb";
+import { ObjectId } from "mongodb";
+import { revalidatePath } from "next/cache";
 
 export async function createProduct(previousState, formData) {
   const title = formData.get("title");
@@ -37,4 +39,21 @@ export async function createProduct(previousState, formData) {
       message: "Product added successfully!", // Add a success message
     };
   }
+}
+
+
+export async function deleteProduct(productId){
+  console.log(`Attempting to delete user with ID: ${productId}`);
+  const id = new ObjectId(productId);
+    const client = await clientPromise;
+  const db = client.db(process.env.DATABASE_NAME);
+  const forms = db.collection("forms");
+
+  const query = {_id: id};
+  const result = await forms.deleteOne(query);
+
+  if(result.deletedCount === 1){
+    revalidatePath('/products-db')
+  }
+
 }
