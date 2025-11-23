@@ -1,13 +1,21 @@
 import clientPromise from "@/component/lib/mongodb";
 import ProductDetailsPage from "./productsDetails";
 
-export default async function AllProductsPage() {
+export default async function AllProductsPage({ searchParams }) {
+  const { query } = await searchParams;
+  console.log(query);
+
   const client = await clientPromise;
   const db = client.db(process.env.DATABASE_NAME);
   const forms = db.collection("forms");
 
-  const results = await forms.find().toArray();
-  const products = JSON.parse(JSON.stringify(results))
+  let makingQuery = {};
+  if (query) {
+    makingQuery = { title: query};
+  };
+  const results = await forms.find(makingQuery).toArray();
+
+  const products = JSON.parse(JSON.stringify(results));
 
   return (
     // <div>
@@ -28,7 +36,7 @@ export default async function AllProductsPage() {
     // </div>
 
     <>
-    <ProductDetailsPage products={products} />
+      <ProductDetailsPage products={products} />
     </>
   );
 }

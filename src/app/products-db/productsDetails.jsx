@@ -1,6 +1,7 @@
 'use client'
 import { useOptimistic } from "react";
 import { deleteProduct } from "@/actions/Products";
+import Form from "next/form";
 
 export default function ProductDetailsPage({products}) {
 
@@ -24,11 +25,17 @@ export default function ProductDetailsPage({products}) {
           </div>
 
           {/* <DeleteBtn productId={product._id.toString()} /> */}
-          <form action={removeProductById.bind(null, product._id)}>
+          <Form action={removeProductById.bind(null, product._id)}>
             <button className="bg-red-500 p-2 cursor-pointer">Delete</button>
-          </form>
+          </Form>
         </div>
       ))}
+
+      {/* {
+        optimisticProducts.length === 0 (
+          <p>Products not found..</p>
+        )
+      } */}
     </div>
   );
 }
