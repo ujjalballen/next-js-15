@@ -18,11 +18,15 @@ export const Navigation = () => {
             </h1>
           </div>
           <div className="flex items-center gap-4">
-            <SignInButton mode="modal" />
+            <SignedOut>
+              <SignInButton mode="modal" />
+            </SignedOut>
             {/* <UserButton /> */}
-            <Link href={"/person-profile"}>Profile</Link>
+            <SignedIn>
+              <Link href={"/person-profile"}>Profile</Link>
 
-            <SignOutButton />
+              <SignOutButton />
+            </SignedIn>
           </div>
         </div>
       </div>
