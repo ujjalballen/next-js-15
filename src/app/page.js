@@ -3,6 +3,7 @@
 import { Search } from "@/component/Search";
 import State from "./State";
 import HomeLayout from "@/component/HomeLayout";
+import { Counter } from "@/component/counter";
 
 export default function Home() {
   // const addhander = () => {
@@ -16,6 +17,7 @@ export default function Home() {
         <div className="ml-2">
           <Search />
         </div>
+        <Counter />
       </div>
     </HomeLayout>
   );
